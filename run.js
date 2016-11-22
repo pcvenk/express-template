@@ -5,6 +5,9 @@ var path = require('path');
 
 const PORT = 3000;
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+
 app.use('/', express.static(path.join(__dirname, '/public')));
 
 app.get('/employees', function(req, res){
@@ -40,6 +43,12 @@ app.get('/about', function(req, res){
 
 app.get('/services', function(req, res){
    res.redirect('/services.html');
+});
+
+app.post('/subscribe', function(req, res){
+   var name = req.body.name;
+   var email = req.body.email;
+   res.send('User '+name + ' subscribed with '+email);
 });
 
 app.listen(PORT, function(){
